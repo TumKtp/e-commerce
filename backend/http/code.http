@@ -1,0 +1,18 @@
+@Host = http://localhost:5000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExZDFjMWI4LWU1MDgtNDQzMC05MjBkLTEwOGI2NzVmMjIxYiIsImlhdCI6MTczMzAzODA0MSwiZXhwIjoxNzMzNjQyODQxfQ.se1aN0GJ0BwJrmRWqDd60559IXHh-EVtUI4IFjMe1kw
+
+@orderId = 78cc67a5-fc01-4b48-a21c-73067ed86bd9
+
+GET   {{Host}}/api/codes/{{orderId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+PUT  {{Host}}/api/codes/redeem
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "code": "1d5c4fa1-c79b-4dd2-b99e-cb903a27b4a3"
+}
+

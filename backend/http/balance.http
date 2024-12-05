@@ -1,0 +1,7 @@
+@Host = http://localhost:5000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExZDFjMWI4LWU1MDgtNDQzMC05MjBkLTEwOGI2NzVmMjIxYiIsImlhdCI6MTczMzAzODA0MSwiZXhwIjoxNzMzNjQyODQxfQ.se1aN0GJ0BwJrmRWqDd60559IXHh-EVtUI4IFjMe1kw
+
+GET   {{Host}}/api/balance
+Content-Type: application/json
+Authorization: Bearer {{token}}
+

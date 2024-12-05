@@ -1,0 +1,27 @@
+@Host = http://localhost:5000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExZDFjMWI4LWU1MDgtNDQzMC05MjBkLTEwOGI2NzVmMjIxYiIsImlhdCI6MTczMzAzODA0MSwiZXhwIjoxNzMzNjQyODQxfQ.se1aN0GJ0BwJrmRWqDd60559IXHh-EVtUI4IFjMe1kw
+
+POST  {{Host}}/api/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "products": [
+        {
+            "productTypeId": "b8a53bd9-006b-4151-8a90-81a9f1f48f79",
+            "quantity": 3
+        },
+        {
+            "productTypeId": "eaebd278-3712-455e-a7a9-c41a19550b68",
+            "quantity": 3
+        }
+    ]
+}
+
+
+
+###
+@orderId = 78cc67a5-fc01-4b48-a21c-73067ed86bd9
+GET  {{Host}}/api/orders/{{orderId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}

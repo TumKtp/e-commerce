@@ -1,0 +1,37 @@
+@Host = http://localhost:5000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExZDFjMWI4LWU1MDgtNDQzMC05MjBkLTEwOGI2NzVmMjIxYiIsImlhdCI6MTczMzAzODA0MSwiZXhwIjoxNzMzNjQyODQxfQ.se1aN0GJ0BwJrmRWqDd60559IXHh-EVtUI4IFjMe1kw
+
+POST  {{Host}}/api/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+{
+    "name": "Product 2",
+    "description": "Product 2 description"
+}
+
+
+###
+@productId = a4ae8b0a-f1d1-4381-8dbb-b53db33c7385
+POST  {{Host}}/api/products/{{productId}}/types
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "price": 10,
+    "type": "Type 5"
+}
+
+
+###
+GET  {{Host}}/api/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+GET  {{Host}}/api/products/{{productId}}/types
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+

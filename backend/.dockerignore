@@ -1,0 +1,6 @@
+.git
+db
+http
+node_modules
+*Dockerfile*
+*docker-compose*
