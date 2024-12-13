@@ -28,7 +28,10 @@ export const createProductType = async (
 
 export const getProducts = async (req: Request, res: Response, next: any) => {
   try {
-    const products = await productService.getProducts(req.query)
+    const products = await productService.getProducts({
+      limit: Number(req.query.limit),
+      page: Number(req.query.page),
+    })
     res.status(200).json(products)
   } catch (error) {
     next(error)
@@ -43,9 +46,19 @@ export const getProductTypes = async (
   try {
     const productTypes = await productService.getProductTypes({
       productId: req.params.productId,
-      ...req.query,
+      limit: Number(req.query.limit),
+      page: Number(req.query.page),
     })
     res.status(200).json(productTypes)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getProduct = async (req: Request, res: Response, next: any) => {
+  try {
+    const product = await productService.getProduct(req.params.productId)
+    res.status(200).json(product)
   } catch (error) {
     next(error)
   }

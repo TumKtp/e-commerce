@@ -44,6 +44,9 @@ app.use(
 app.use(express.json())
 app.use(cors())
 
+app.get("/", (_req: Request, res: Response) => {
+  res.send("Server is running")
+})
 app.use("/api/auth", authRoutes)
 app.use("/api/orders", authMiddleware, orderRoutes)
 app.use("/api/products", authMiddleware, productRoutes)

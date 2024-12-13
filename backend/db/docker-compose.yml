@@ -11,7 +11,7 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
 
   app:
-    image: my-node-app  
+    image: tumktp/e-commerce-backend:latest  
     ports:
       - "5000:5000"  
     environment:

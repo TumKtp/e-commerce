@@ -37,7 +37,7 @@ class ProductService {
   }
 
   async getProducts({ page = 1, limit = 10 }) {
-    const products = await this.productRepository.find({
+    const [products, count] = await this.productRepository.findAndCount({
       take: limit,
       skip: (page - 1) * limit,
       order: {
@@ -48,7 +48,20 @@ class ProductService {
       limit,
       page,
       products,
+      count,
     }
+  }
+
+  async getProduct(productId: string) {
+    const product = await this.productRepository.findOne({
+      where: {
+        id: productId,
+      },
+    })
+    if (!product) {
+      throw new Error("Product not found")
+    }
+    return product
   }
 
   async getProductTypes({
@@ -60,20 +73,23 @@ class ProductService {
     page?: number
     limit?: number
   }) {
-    const productTypes = await this.productTypeRepository.find({
-      where: {
-        productId,
-      },
-      take: limit,
-      skip: (page - 1) * limit,
-      order: {
-        createdAt: "DESC",
-      },
-    })
+    const [productTypes, count] = await this.productTypeRepository.findAndCount(
+      {
+        where: {
+          productId,
+        },
+        take: limit,
+        skip: (page - 1) * limit,
+        order: {
+          createdAt: "DESC",
+        },
+      }
+    )
     return {
       limit,
       page,
       productTypes,
+      count,
     }
   }
 }

@@ -27,3 +27,14 @@ export const getOrderStatus = async (
     next(error)
   }
 }
+
+export const getOrders = async (req: Request, res: Response, next: any) => {
+  try {
+    const orders = await orderService.getOrders({ customerId: req.userId! })
+    res.status(200).json({
+      orders,
+    })
+  } catch (error) {
+    next(error)
+  }
+}

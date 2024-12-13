@@ -1,7 +1,3 @@
-// export interface CreateOrderDTO {
-//   products: { productTypeId: string; quantity: number }[]
-// }
-
 import { z } from "zod"
 
 export const createOrderSchema = z.object({

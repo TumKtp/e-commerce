@@ -30,7 +30,7 @@ class OrderService {
           where: { id: customerId },
         })
       if (!customer) {
-        throw new AppError("Customer not found", StatusCodes.NOT_FOUND)
+        throw "Customer not found"
       }
 
       const productTypesInfo = await queryRunner.manager
@@ -45,16 +45,13 @@ class OrderService {
           (p) => p.id === product.productTypeId
         )
         if (!productInfo) {
-          throw new AppError(
-            "One or more products not found",
-            StatusCodes.NOT_FOUND
-          )
+          throw "Product not found"
         }
         return product.quantity > productInfo.stock
       })
 
       if (exceedStock) {
-        throw new AppError("Exceed stock", StatusCodes.BAD_REQUEST)
+        throw "Exceed stock"
       }
 
       const totalPrice = sumBy(products, (product) => {
@@ -65,7 +62,7 @@ class OrderService {
       })
 
       if (customer.balance < totalPrice) {
-        throw new AppError("Insufficient balance", StatusCodes.BAD_REQUEST)
+        throw "Insufficient balance"
       }
 
       // Create the order
@@ -119,10 +116,7 @@ class OrderService {
     } catch (error: unknown) {
       await queryRunner.rollbackTransaction()
       logger.error(error)
-      throw new AppError(
-        "Failed to create order",
-        StatusCodes.INTERNAL_SERVER_ERROR
-      )
+      throw new AppError("Failed to create order", StatusCodes.BAD_REQUEST)
     } finally {
       await queryRunner.release()
     }
@@ -141,6 +135,12 @@ class OrderService {
         customerId,
       },
       relations: ["orderItems", "orderItems.productType"],
+    })
+  }
+
+  async getOrders({ customerId }: { customerId: string }) {
+    return await this.orderRepository.find({
+      where: { customerId },
     })
   }
 }
